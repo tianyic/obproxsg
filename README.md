@@ -22,36 +22,39 @@ In `datasets.py`, `DATA_DIR`represents the path to dataset. Please replace this 
 
 ### Run all experiments
 
-The scripts of running all non-convex experiments are provided in the `run.sh`. You can simply run the following command to test non-convex experiments:
+The scripts of running all non-convex experiments are provided in the `command.sh`. You can simply run the following command to test non-convex experiments:
 
 ```bash
-bash run.sh
+bash command.sh
 ```
 
 ### Run specific experiment
 
-+ algorithm: [proxsg|rda|proxsvrg|obproxsg_plus]
-+ backend: [mobilenetv1|resnet18]
-+ dataset_name: [cifar10|fashion_mnist]
++ optimizer: [ obproxsg | obproxsg_plus | proxsg | rda | proxsvrg ]
++ backend: [ mobilenetv1 | resnet18 ]
++ dataset_name: [ cifar10 | fashion_mnist ]
 
-Replace the `<xxx>` with the specific value, and run this command:
 
 ```bash
-python <algorithm>.py --backend <backend> \
-                 --dataset_name <dataset_name> \
-                 --lmbda 0.0001 \
-                 --max_epoch 200 \
-                 --batch_size 128
+python run.py --optimizer <optimizer> \
+              --backend <backend> \
+              --dataset_name <dataset_name> \
+              --lambda_ 0.0001 \
+              --max_epoch 200 \
+              --lr 0.1 \
+              --batch_size 128
 ```
 
 An example is:
 
 ```bash
-python obproxsg_plus.py --backend mobilenetv1 \
-                 --dataset_name cifar10 \
-                 --lmbda 0.0001 \
-                 --max_epoch 200 \
-                 --batch_size 128
+python run.py --optimizer obproxsg_plus \
+              --backend mobilenetv1 \
+              --dataset_name cifar10 \
+              --lambda_ 0.0001 \
+              --max_epoch 200 \
+              --lr 0.1 \
+              --batch_size 128
 ```
 
 ## Evaluation

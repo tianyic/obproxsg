@@ -130,7 +130,7 @@ def main():
     m = num_samples
 
     criterion = nn.CrossEntropyLoss()
-    optimizer = OBProxSG(model.parameters(), lr=lr, lambda_=lambda_, epochSize=len(trainloader), Np=2, No=2)
+    optimizer = OBProxSG(model.parameters(), lr=lr, lambda_=lambda_, epochSize=len(trainloader), Np=int(max_epoch/10))
     scheduler = StepLR(optimizer, step_size=60, gamma=0.1)
 
     os.makedirs('results', exist_ok=True)

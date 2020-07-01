@@ -8,8 +8,8 @@ Sparsity-inducing regularization problems are ubiquitous in machine learning app
 
 ## Requirements
 
-+ torch: 1.4.0
-+ torchvision: 0.5.0
++ torch: 1.4.0 or higher
++ torchvision: 0.5.0 or higher
 
 Please follow the instructions [here](<https://pytorch.org/get-started/locally/>) to install PyTorch.
 

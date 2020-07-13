@@ -1,4 +1,4 @@
 from .obproxsg import OBProxSG
-# from .proxsg import ProxSG
+from .proxsg import ProxSG
 # from .proxsvrg import ProxSVRG
-# from .rda import RDA
+from .rda import RDA

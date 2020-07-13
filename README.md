@@ -31,13 +31,13 @@ bash command.sh
 ### Run specific experiment
 
 + optimizer: [ obproxsg | obproxsg_plus | proxsg | rda | proxsvrg ]
-+ backend: [ mobilenetv1 | resnet18 ]
++ model: [ mobilenetv1 | resnet18 ]
 + dataset_name: [ cifar10 | fashion_mnist ]
 
 
 ```bash
 python run.py --optimizer <optimizer> \
-              --backend <backend> \
+              --model <model> \
               --dataset_name <dataset_name> \
               --lambda_ 0.0001 \
               --max_epoch 200 \
@@ -49,7 +49,7 @@ An example is:
 
 ```bash
 python run.py --optimizer obproxsg_plus \
-              --backend mobilenetv1 \
+              --model mobilenetv1 \
               --dataset_name cifar10 \
               --lambda_ 0.0001 \
               --max_epoch 200 \
@@ -59,25 +59,21 @@ python run.py --optimizer obproxsg_plus \
 
 ## Evaluation
 
-To evaluate our model, see the log files and trained models which are saved in `results` and `checkpoints` respectively.
-
-Alternatively, you can run the following command to evaluate the trained model. Make sure that the arguments match the training information of trained model.
+To evaluate our model, users can run the following command to evaluate the trained model. Make sure that the arguments match the training information of trained model.
 
 ```bash
-python evaluate.py --backend <backend> \
+python evaluate.py --model <model> \
                    --dataset_name <dataset_name> \
-                   --lmbda 0.0001 \
-                   --batch_size 128 \
+                   --lambda_ 0.0001 \
                    --ckpt <ckpt>
 ```
 
 An example is:
 
 ```bash
-python evaluate.py --backend resnet18 \
+python evaluate.py --model resnet18 \
                    --dataset_name cifar10 \
-                   --lmbda 0.0001 \
-                   --batch_size 128 \
+                   --lambda_ 0.0001 \
                    --ckpt checkpoints/obproxsg_plus_resnet18_cifar10_1.000000E-04.pt
 ```
 

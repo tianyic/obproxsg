@@ -30,7 +30,7 @@ bash command.sh
 
 ### Run specific experiment
 
-+ optimizer: [ obproxsg | proxsg | rda | proxsvrg ]
++ optimizer: [ obproxsg | obproxsg_plus | proxsg | rda | proxsvrg ]
 + model: [ mobilenetv1 | resnet18 ]
 + dataset_name: [ cifar10 | fashion_mnist ]
 
@@ -48,7 +48,7 @@ python run.py --optimizer <optimizer> \
 An example is:
 
 ```bash
-python run.py --optimizer obproxsg \
+python run.py --optimizer obproxsg_plus \
               --model mobilenetv1 \
               --dataset_name cifar10 \
               --lambda_ 0.0001 \

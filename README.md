@@ -82,7 +82,7 @@ If you find the code or results useful, please kindly cite the following paper:
 ```
 @article{chen2020orthant,
   title={Orthant Based Proximal Stochastic Gradient Method for $\ell_1 $-Regularized Optimization},
-  author={Chen, Tianyi and Ding, Tianyu and Ji, Bo and Wang, Guanyi and Shi, Yixin and Yi, Sheng and Tu, Xiao and Zhu, Zhihui},
+  author={Chen, Tianyi and Ding, Tianyu and Ji, Bo and Wang, Guanyi and Tian, Jing and Shi, Yixin and Yi, Sheng and Tu, Xiao and Zhu, Zhihui},
   journal={arXiv preprint arXiv:2004.03639},
   year={2020}
 }

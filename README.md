@@ -41,7 +41,7 @@ python run.py --optimizer <optimizer> \
               --dataset_name <dataset_name> \
               --lambda_ 0.0001 \
               --max_epoch 200 \
-              --lr 0.1 \
+              -lr 0.1 \
               --batch_size 128
 ```
 
@@ -53,7 +53,7 @@ python run.py --optimizer obproxsg_plus \
               --dataset_name cifar10 \
               --lambda_ 0.0001 \
               --max_epoch 200 \
-              --lr 0.1 \
+              -lr 0.1 \
               --batch_size 128
 ```
 

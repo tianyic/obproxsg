@@ -67,11 +67,13 @@ def main():
         optimizer = ProxSG(model.parameters(),
                            lr=args.learning_rate, lambda_=args.lambda_)
     elif args.optimizer == 'proxsvrg':
-        pass
+        optimizer = ProxSVRG(model.parameters(), lr=args.learning_rate, 
+                             lambda_=args.lambda_, epochSize=len(trainloader))
     elif args.optimizer == 'rda':
-        optimizer = RDA(model.parameters(), lr=args.learning_rate, gamma=20)
+        optimizer = RDA(model.parameters(), lambda_=args.lambda_, gamma=20, epochSize=len(trainloader))
 
-    scheduler = StepLR(optimizer, step_size=60, gamma=0.1)
+    if args.optimizer != 'rda':
+        scheduler = StepLR(optimizer, step_size=60, gamma=0.1)
 
     os.makedirs('results', exist_ok=True)
     setting = '%s_%s_%s_%E' % (
@@ -93,17 +95,53 @@ def main():
         if epoch >= args.max_epoch:
             break
 
-        for _, (X, y) in enumerate(trainloader):
-            X = X.to(device)
-            y = y.to(device)
-            y_pred = model.forward(X)
-
-            f = criterion(y_pred, y)
+        if args.optimizer == 'proxsvrg':
             optimizer.zero_grad()
-            f.backward()
+            for index, (X, y) in enumerate(trainloader):
+                X = X.to(device)
+                y = y.to(device)
+                y_pred = model.forward(X)
+                f1 = criterion(y_pred, y)
+                f1.backward()
+            optimizer.init_epoch()
+
+            for index, (X, y) in enumerate(trainloader):
+                X = X.to(device)
+                y = y.to(device)
+
+                # calculate grad_f_i
+                optimizer.set_weights_as_xs()
+                y_pred = model.forward(X)
+                f = criterion(y_pred, y)
+                optimizer.zero_grad()
+                f.backward()
+                optimizer.save_grad_f()
+
+                # calculate grad_f_hat_i
+                optimizer.set_weights_as_hat_x()
+                y_pred = model.forward(X)
+                f = criterion(y_pred, y)
+                optimizer.zero_grad()
+                f.backward()
+                optimizer.save_grad_f_hat()
+
+                optimizer.update_xs()
+
             optimizer.step()
 
-        scheduler.step()
+        else:
+            for _, (X, y) in enumerate(trainloader):
+                X = X.to(device)
+                y = y.to(device)
+                y_pred = model.forward(X)
+
+                f = criterion(y_pred, y)
+                optimizer.zero_grad()
+                f.backward()
+                optimizer.step()
+
+        if args.optimizer != 'rda':
+            scheduler.step()
         epoch += 1
 
         train_time = time.time() - epoch_start_time

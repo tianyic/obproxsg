@@ -4,25 +4,30 @@ from torch.optim.optimizer import Optimizer, required
 
 
 class RDA(Optimizer):
-    def __init__(self, params, lr=required, gamma=required):
-        if lr is not required and lr < 0.0:
-            raise ValueError("Invalid lambda: {}".format(lr))
+    def __init__(self, params, lambda_=required, gamma=required, epochSize=required):
+        if lambda_ is not required and lambda_ < 0.0:
+            raise ValueError("Invalid lambda: {}".format(lambda_))
 
         if gamma is not required and gamma < 0.0:
             raise ValueError("Invalid gamma: {}".format(gamma))
 
+        if epochSize is not required and epochSize < 0.0:
+            raise ValueError("Invalid epochSize: {}".format(epochSize))
+
         self.init_run = True
-        defaults = dict(lr=lr, gamma=gamma)
+        self.epochSize = epochSize
+        self.iter = 0
+        defaults = dict(lambda_=lambda_, gamma=gamma)
         super(RDA, self).__init__(params, defaults)
 
-    def shrink(self, i, bar_g, lr, gamma):
+    def shrink(self, i, bar_g, lambda_, gamma):
         '''
             Soft l1 shrinkage operator for RDA
         '''
         x = torch.zeros_like(bar_g)
-        mask = abs(bar_g) > lr
+        mask = abs(bar_g) > lambda_
         x[mask] = -math.sqrt(i)/gamma*(bar_g[mask] -
-                                       lr*torch.sign(bar_g[mask]))
+                                       lambda_*torch.sign(bar_g[mask]))
         return x
 
     def step(self, closure=None):
@@ -44,7 +49,7 @@ class RDA(Optimizer):
                 state = self.state[p]
 
                 state['i'] += 1
-                lr = group['lr']
+                lambda_ = group['lambda_']
                 gamma = group['gamma']
 
                 i = state['i']
@@ -52,16 +57,27 @@ class RDA(Optimizer):
 
                 x = torch.zeros_like(p.data)
                 mask = abs(state['w_0'] - math.sqrt(i) / gamma *
-                           state['bar_g']) > math.sqrt(i) / gamma * lr
+                           state['bar_g']) > math.sqrt(i) / gamma * lambda_
 
                 if len(p.shape) > 1:  # weights
-                    x[mask] = state['w_0'][mask] - math.sqrt(i)/gamma*(state['bar_g'][mask] + lr*torch.sign(
+                    x[mask] = state['w_0'][mask] - math.sqrt(i)/gamma*(state['bar_g'][mask] + lambda_*torch.sign(
                         state['w_0'][mask] - math.sqrt(i) / gamma * state['bar_g'][mask]))
                     p.data.copy_(x)
                 else:
                     x[mask] = state['w_0'][mask] - \
                         math.sqrt(i)/gamma*(state['bar_g'][mask])
                     p.data.copy_(x)
+
+                print(state['i'], end=';')
+
+        self.iter += 1
+        if self.iter >= self.epochSize:
+            for group in self.param_groups:
+                for p in group['params']:
+                    state = self.state[p]
+                    state['i'] = 0
+            self.iter = 0
+
 
         return loss
 

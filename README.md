@@ -1,6 +1,6 @@
 # Orthant Based Proximal Stochastic Gradient Method for ℓ1-Regularized Optimization
 
-PyTorch Implementation of non-convex experiments in "Orthant Based Proximal Stochastic Gradient Method for ℓ1-Regularized Optimization". 
+PyTorch Implementation of non-convex experiments in "Orthant Based Proximal Stochastic Gradient Method for ℓ1-Regularized Optimization", appearing in ECML-PKDD 2020.
 
 ## Abstract
 
@@ -77,7 +77,7 @@ python evaluate.py --model resnet18 \
                    --ckpt checkpoints/obproxsg_plus_resnet18_cifar10_1.000000E-04.pt
 ```
 
-## Acknowledgements
+## Citation
 If you find the code or results useful, please kindly cite the following paper:
 ```
 @article{chen2020orthant,

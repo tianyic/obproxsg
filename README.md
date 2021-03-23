@@ -83,7 +83,7 @@ python evaluate.py --model resnet18 \
 If you find the code or results useful, please kindly cite the following paper:
 ```
 @inproceedings{chen2021orthant,
-  title={Orthant Based Proximal Stochastic Gradient Method for ℓ \_1 ℓ 1-Regularized Optimization},
+  title={Orthant Based Proximal Stochastic Gradient Method for $\ell_1 $-Regularized Optimization},
   author={Chen, Tianyi and Ding, Tianyu and Ji, Bo and Wang, Guanyi and Shi, Yixin and Tian, Jing and Yi, Sheng and Tu, Xiao and Zhu, Zhihui},
   booktitle={Machine Learning and Knowledge Discovery in Databases: European Conference, ECML PKDD 2020, Ghent, Belgium, September 14--18, 2020, Proceedings, Part III},
   pages={57--73},

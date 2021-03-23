@@ -2,6 +2,8 @@
 
 PyTorch Implementation of non-convex experiments in "Orthant Based Proximal Stochastic Gradient Method for ℓ1-Regularized Optimization", appearing in ECML-PKDD 2020.
 
+[[paper](https://www.springerprofessional.de/en/orthant-based-proximal-stochastic-gradient-method-for-regularize/18899904)] [[arXiv](https://arxiv.org/abs/2004.03639)]
+
 ## Abstract
 
 Sparsity-inducing regularization problems are ubiquitous in machine learning applications, ranging from feature selection to model compression. In this paper, we present a novel stochastic method -- Orthant Based Proximal Stochastic Gradient Method (OBProx-SG) -- to solve perhaps the most popular instance, i.e., the l1-regularized problem. The OBProx-SG method contains two steps: (i) a proximal stochastic gradient step to predict a support cover of the solution; and (ii) an orthant step to aggressively enhance the sparsity level via orthant face projection. Compared to the state-of-the-art methods, e.g., Prox-SG, RDA and Prox-SVRG, the OBProx-SG not only converges to the global optimal solutions (in convex scenario) or the stationary points (in non-convex scenario), but also promotes the sparsity of the solutions substantially. Particularly, on a large number of convex problems, OBProx-SG outperforms the existing methods comprehensively in the aspect of sparsity exploration and objective values. Moreover, the experiments on non-convex deep neural networks, e.g., MobileNetV1 and ResNet18, further demonstrate its superiority by achieving the solutions of much higher sparsity without sacrificing generalization accuracy.
@@ -80,6 +82,17 @@ python evaluate.py --model resnet18 \
 ## Citation
 If you find the code or results useful, please kindly cite the following paper:
 ```
+@inproceedings{chen2021orthant,
+  title={Orthant Based Proximal Stochastic Gradient Method for ℓ \_1 ℓ 1-Regularized Optimization},
+  author={Chen, Tianyi and Ding, Tianyu and Ji, Bo and Wang, Guanyi and Shi, Yixin and Tian, Jing and Yi, Sheng and Tu, Xiao and Zhu, Zhihui},
+  booktitle={Machine Learning and Knowledge Discovery in Databases: European Conference, ECML PKDD 2020, Ghent, Belgium, September 14--18, 2020, Proceedings, Part III},
+  pages={57--73},
+  year={2021},
+  organization={Springer International Publishing}
+}
+
+or
+
 @article{chen2020orthant,
   title={Orthant Based Proximal Stochastic Gradient Method for $\ell_1 $-Regularized Optimization},
   author={Chen, Tianyi and Ding, Tianyu and Ji, Bo and Wang, Guanyi and Tian, Jing and Shi, Yixin and Yi, Sheng and Tu, Xiao and Zhu, Zhihui},
